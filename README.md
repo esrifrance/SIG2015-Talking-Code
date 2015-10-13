@@ -2,11 +2,11 @@
 
 Ce dépot contient les 3 ateliers [Talking Code](http://sig2015.esrifrance.fr/Talking-Code.aspx) de [SIG2015](http://sig2015.esrifrance.fr/).
 
-Thème 1 : Comment intégrer les nouveautés de l’API JS 4.0 dans vos applications ?
+[Thème 1](./Thème 1 - API JS 4) : Comment intégrer les nouveautés de l’API JS 4.0 dans vos applications ?
 
-Thème 2 : Comment ajouter des nouvelles fonctionnalités à ArcGIS Pro sous forme d’add-in avec le SDK .Net ?
+[Thème 2](./Thème 2 - ArcGIS Pro) : Comment ajouter des nouvelles fonctionnalités à ArcGIS Pro sous forme d’add-in avec le SDK .Net ?
 
-Thème 3 : Comment contribuer aux travaux de la communauté des développeurs Esri sur Github ?
+[Thème 3](./Thème 3 – Esri Github) : Comment contribuer aux travaux de la communauté des développeurs Esri sur Github ?
 
 # License
 Copyright 2015 Esri France

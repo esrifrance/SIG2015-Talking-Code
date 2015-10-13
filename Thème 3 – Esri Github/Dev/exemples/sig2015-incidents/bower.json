@@ -1,0 +1,34 @@
+{
+  "name": "responsive-citizens",
+  "version": "0.0.1",
+  "homepage": "https://github.com/tomwayson/responsive-citizens",
+  "authors": [
+    "Tom Wayson <twayson@esri.com>"
+  ],
+  "main": "src/index.html",
+  "keywords": [
+    "Esi",
+    "Dojo",
+    "Bootstrap"
+  ],
+  "license": "Apache",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-map-js": "~0.0.2",
+    "dojo-bootstrap": "~3.0.2",
+    "dijit": "1.10.2",
+    "dojo": "1.10.2",
+    "dojox": "1.10.2",
+    "util": "dojo-util#1.10.2",
+    "dgrid": "0.3.16",
+    "put-selector": "0.3.5",
+    "xstyle": "0.1.3"
+  }
+}

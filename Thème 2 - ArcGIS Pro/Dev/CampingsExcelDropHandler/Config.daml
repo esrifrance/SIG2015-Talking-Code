@@ -1,0 +1,60 @@
+﻿<ArcGIS defaultAssembly="CampingsExcelDropHandler.dll" defaultNamespace="CampingsExcelDropHandler" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{1d184dfb-8c6c-4819-b6df-48be536e19af}" version="3.0" desktopVersion="1.1.3247">
+    <Name>CampingsExcelDropHandler</Name>
+    <Description>Import campings by drag and drop of a csv file</Description>
+    <Image>Images\Campings32.png</Image>
+    <!--Source of the icone:Dossier Cartella Cartoon Free Directory Restaurant File Pictogram ... from fr.clipartlogo.com (by geant)-->
+    <Author>Professional Services</Author>
+    <Company>Esri France</Company>
+    <Date>8/13/2015 11:00:33 AM, 2015</Date>
+    <Subject>Content</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <!-- //   Copyright 2015 Esri
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+
+//       http://www.apache.org/licenses/LICENSE-2.0
+
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License. 
+-->
+  <modules>
+    <insertModule id="CampingsExcelDropHandler_Module" className="Module1" autoLoad="false" caption="Module1">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <!--<tab id="ExcelDropHandler_Tab1" caption="New Tab">
+          <group refID="ExcelDropHandler_Group1"/>
+        </tab>-->
+      </tabs>
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid
+              an empty group-->
+        <group id="ExcelDropHandler_Group1" caption="Campings group" appearsOnAddInTab="true">
+          <!-- host controls within groups -->
+          <button refID="CampingsExcelDropHandler_CampingsButton" size="large" />
+          <button refID="CampingsExcelDropHandler_ZoomIn" size="large" />
+          <button refID="esri_mapping_fixedZoomOutButton" size="large" />
+          <button refID="esri_core_saveProjectButton" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <button id="CampingsExcelDropHandler_CampingsButton" caption="Gets campings list" className="CampingsButton" loadOnClick="true" smallImage="Images\Campings16.png" largeImage="Images\Campings32.png">
+          <tooltip heading="Tooltip Heading">Gets campings list<disabledText /></tooltip>
+        </button>
+        <button id="CampingsExcelDropHandler_ZoomIn" caption="ZoomIn " className="ZoomIn" loadOnClick="true" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
+          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        </button>
+      </controls>
+    </insertModule>
+  </modules>
+  <dropHandlers>
+    <insertHandler id="ExcelDropHandler_ExcelHandler" className="ExcelHandler" dataTypes=".XLSX|.xlsx|.XLS|.xls|.csv|.CSV" />
+  </dropHandlers>
+</ArcGIS>

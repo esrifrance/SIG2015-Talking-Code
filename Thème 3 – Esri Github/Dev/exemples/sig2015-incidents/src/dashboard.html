@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="app/css/keen-dashboards.css" />
+  <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.11/esri/css/esri.css">
+  <link rel="stylesheet" type="text/css" href="//esri.github.io/bootstrap-map-js/dist/css/bootstrapmap.min.css">
+</head>
+<body class="application">
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation1</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+<!--         <a class="navbar-brand hidden-xs" href="#">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a> -->
+        <a class="navbar-brand" href="#">Tableau de bord des rapports d'incidents</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Collector</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="http://www.versailles.fr/">Ville de Versailles</a></li>
+          <li><a href="https://github.com/tomwayson/responsive-citizens">Source</a></li>
+          <li><a href="http://stackoverflow.com/search?q=esri+bootstrap">Support</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-sm-6">
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="chart-wrapper">
+              <div class="chart-title">
+                Criticité des incidents
+              </div>
+              <div class="chart-stage">
+                <div class="chart left">
+                  <canvas id="severity-chart"></canvas>
+                </div>
+                <div class="legend right">
+                  <div id="severity-legend"></div>
+                </div>
+              </div>
+              <div class="chart-notes">
+                Nombre d'incidents par sévérité.
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="chart-wrapper">
+              <div class="chart-title">
+                Type d'incidents
+              </div>
+              <div class="chart-stage">
+                <div class="chart">
+                  <canvas id="requestTypeChart"></canvas>
+                </div>
+              </div>
+              <div class="chart-notes">
+                Nombre de requêtes par type.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Carte des incidents
+          </div>
+          <div class="map-stage">
+            <div id="map"></div>
+          </div>
+          <div class="chart-notes">
+            Carte des incidents géolocalisés
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="small text-muted">Créé par <a href="https://esri.github.io/">Esri</a> avec un grand &#9829; à <a href="https://keen.io">Keen IO</a></p>
+
+  </div>
+
+  <!-- UI Resources -->
+  <!-- jQuery (for Bootstrap's JavaScript plugins). NOTE: You can also use pure Dojo. See examples. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <!-- Include all  plugins or individual files as needed -->
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+  <!-- Esri rocks -->
+  <script type="text/javascript">
+    window.dojoConfig = {
+      packages: [          {
+        name: 'app',
+        location: window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/app'
+      }, {
+        name: 'bootstrap-map-js',
+        location: '//esri.github.io/bootstrap-map-js/src/'
+      }, {
+        name: 'chartjs',
+        location: '//www.chartjs.org/assets'
+      }]
+    };
+  </script>
+  <script src="//js.arcgis.com/3.11compact"></script>
+
+  <script>
+    require([
+      'chartjs/Chart',
+
+      'app/map',
+      'app/config',
+
+      'dojo/domReady!'
+    ], function(Chart, mapUtils, config) {
+
+      var severityChart, // pie chart
+        requestTypeChart; // bar chart
+
+      // TODO: get these from the feature layer on load
+      var severityFieldDomainCodedValuesDict = config.severityFieldDomainCodedValuesDict;
+      var requestTypeFieldDomainCodedValuesDict = config.requestTypeFieldDomainCodedValuesDict;
+
+      // override chart defaults
+      Chart.defaults.global.responsive = true;
+      Chart.defaults.global.maintainAspectRatio = false;
+
+      // kick off the application
+      initMap();
+
+      // initialize map and wire it up to the charts
+      function initMap() {
+        // create responsive map
+        var map = mapUtils.createMap();
+        // set up feature layer popup
+        var citizenRequestLayer = mapUtils.addFeatureLayer();
+        citizenRequestLayer.on('update-end', function(layer) {
+          // update charts when feature layer is refreshed
+          // (i.e. after map pan/zoom)
+          updateCharts(citizenRequestLayer, map.extent);
+        });
+        map.addLayer(citizenRequestLayer);
+      }
+
+      window.severityDomainLookup = function (value, key, data){
+          return severityFieldDomainCodedValuesDict[value];
+        };
+      window.requestTypeDomainLookup = function (value, key, data){
+          return requestTypeFieldDomainCodedValuesDict[value];
+        };
+      window.formatPhoneNumber = function (value, key, data){
+          return value ? '<a href=\'tel:' + value + '\'>' + value + '</a>' : '';
+        };
+
+      // refresh chart based on feature layer stats
+      function updateCharts(featureLayer, extent) {
+        // get stats for feature layer
+        var stats = getGraphicsStats(featureLayer.graphics, ['severity', 'requesttype'], extent);
+
+        // create or update severity chart
+        updateSeverityChart(stats.severity.counts);
+
+        // create or update request type chart
+        updateRequestTypeChart(stats.requesttype.counts);
+      }
+
+      // get stats for each group by field
+      // TODO: currently only gets counts
+      // could aslo be configured to get the sum, etc
+      function getGraphicsStats(graphics, groupByFields, extent) {
+        var stats = {};
+        if (!groupByFields || !groupByFields.forEach) {
+          return;
+        }
+        groupByFields.forEach(function(groupByField) {
+          stats[groupByField] = getFieldStats(graphics, groupByField, extent);
+        });
+        return stats;
+      }
+
+      // get stats for a group by field
+      // TODO: currently only gets counts
+      // could aslo be configured to get the sum, etc
+      function getFieldStats(graphics, groupByField, extent) {
+        var total = 0;
+        var fieldCounts = {};
+        graphics.forEach(function(graphic) {
+          // exclude this graphic if it's not in the extent
+          if (!extent.contains(graphic.geometry)) {
+            return;
+          }
+          total = total + 1;
+          var fieldValue = graphic.attributes[groupByField];
+          var valueCount = fieldCounts[fieldValue];
+          if (!isNaN(valueCount)) {
+            fieldCounts[fieldValue] = valueCount + 1;
+          } else {
+            fieldCounts[fieldValue] = 1;
+          }
+        });
+        return {
+          total: total,
+          counts: fieldCounts
+        };
+      }
+
+      function updateSeverityChart(counts) {
+        // create severity chart data;
+        var segments = {
+          '0': {
+            color: '#46BFBD',
+            highlight: '#5AD3D1',
+            label: 'Incident mineurs'
+          },
+          '1': {
+            color: '#FDB45C',
+            highlight: '#FFC870',
+            label: 'Incidents majeurs'
+          },
+          '2': {
+            color:'#F7464A',
+            highlight: '#FF5A5E',
+            label: 'Incidents critiques'
+          }
+        };
+        var data = [];
+        for (var key in segments) {
+          if (segments.hasOwnProperty(key) && counts.hasOwnProperty(key)) {
+            var segment = segments[key];
+            segment.value = counts[key];
+            data.push(segment);
+          }
+        }
+
+        // create or update chart
+        if (severityChart) {
+          severityChart.destroy();
+        }
+        var ctx = document.getElementById('severity-chart').getContext('2d');
+        severityChart = new Chart(ctx).Pie(data, {
+          legendTemplate : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%>: <%=segments[i].value%></li><%}%></ul>'
+        });
+
+        // update legend
+        var legend = severityChart.generateLegend();
+        document.getElementById('severity-legend').innerHTML = legend;
+      }
+
+      function updateRequestTypeChart(counts) {
+        // create reuest type chart data;
+        var data = {
+          labels: ['Véhicule abandonné','Animal errant','Infraction de la route','Innondation','Graffiti','Sans-abris','Décharge illégale','Stationnement interdit','Plante/arbre dangereux','Nid de poule','Danger sur chaussée','Danger sur trottoir','Feu tricolor défaillant','Panneau signalétique','Immondice','Fuite d\'eau','Déchets végéteaux'],
+          datasets: [
+            {
+              label: 'Request Types',
+              fillColor: 'rgba(151,187,205,0.5)',
+              strokeColor: 'rgba(151,187,205,0.8)',
+              highlightFill: 'rgba(151,187,205,0.75)',
+              highlightStroke: 'rgba(151,187,205,1)'
+            }
+          ]
+        };
+        var datasetData = [];
+        data.labels.forEach(function(label, index) {
+          var count = counts[index] || 0;
+          datasetData.push(count);
+        });
+        data.datasets[0].data = datasetData;
+        if (requestTypeChart) {
+          requestTypeChart.destroy();
+        }
+        var options = {};
+        var ctx = document.getElementById('requestTypeChart').getContext('2d');
+        requestTypeChart = new Chart(ctx).Bar(data, options);
+      }
+    });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Lock viewport to prevent scaling -->
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+  <title>Talking code esri/github ressources</title>
+
+  <link rel="shortcut icon" href="http://esri.github.io/bootstrap-map-js/demo/images/favicon.ico">
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <!-- ArcGIS CSS -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.0beta1/esri/css/esri.css">
+
+  <style>
+    /* Move content down because we have a fixed navbar that is 50px */
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+    /* Set the min and max height of the map, otherwise will expand to full screen */
+
+    #mapViewDiv {
+      /*min-height: 100px;
+       max-height: 1500px;*/
+    }
+
+    .githublnk {
+      position: absolute;
+      bottom: 0;
+      color: #f3f3f3;
+      text-align: center;
+      width: 100%
+    }
+    /* CUSTOMIZE THE NAVBAR
+       -------------------------------------------------- */
+    /* Special class on .container surrounding .navbar, used for positioning it into place. */
+
+    .navbar-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 29;
+    }
+
+    .navbar-container {
+      z-index: 100;
+      color: #f3f3f3;
+    }
+
+    .navbar-inverse .navbar-brand {
+      color: #fff;
+    }
+    /* RESPONSIVE CSS
+       -------------------------------------------------- */
+
+    @media (min-width: 768px) {}
+
+    @media (max-width: 767px) {
+      .esriSimpleSliderTL {
+        top: 65px;
+      }
+      h3 {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar - fluid container to consume full width of screen -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="fluid-container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" data-toggle="modal" data-target="#myModal">esri github Resources</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <!-- Add nav elements resources -->
+        <ul class="nav navbar-nav navbar-left">
+          <li class="dropdown" id="">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown">Github <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="myDropdown">
+              <li><a target="_blank" href="http://esri.github.io">esri est sur github</a></li>
+              <li><a target="_blank" href="http://esrifrance.github.io">esri France aussi</a></li>
+              <li class="divider"></li>
+              <li><a target="_blank" href="https://git-scm.com">git, docs, vidéo, réf.</a></li>
+              <li><a target="_blank" href="https://try.github.io">Tutoriel de 15 minutes sur Github</a></li>
+              <li><a target="_blank" href="https://guides.github.com/">Guides sur Github</a></li>
+              <li><a target="_blank" href="http://pcottle.github.io/learnGitBranching/">Apprendre Git (exercices)</a></li>
+              <li><a target="_blank" href="http://pcottle.github.io/learnGitBranching/?NODEMO">Apprendre Git (bac à sable)</a></li>
+              <li><a target="_blank" href="https://help.github.com/articles/markdown-basics/">Syntaxe mardown github</a></li>
+              <li><a target="_blank" href="http://daringfireball.net/projects/markdown/basics">Syntaxe mardown</a></li>
+            </ul>
+            <li class="dropdown" id="">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">Bootstrap <b class="caret"></b></a>
+              <ul class="dropdown-menu" id="myDropdown">
+                <li><a target="_blank" href="http://www.getbootstrap.com">GetBootstrap</a></li>
+                <li><a target="_blank" href="https://github.com/Esri/bootstrap-map-js">Bootstrap-map-js</a></li>
+              </ul>
+            </li>
+            <li class="dropdown" id="">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">Dojo <b class="caret"></b></a>
+              <ul class="dropdown-menu" id="myDropdown">
+                <li><a target="_blank" href="http://xsokev.github.io/Dojo-Bootstrap/">Dojo Bootstrap</a></li>
+                <li><a target="_blank" href="https://github.com/Esri/dojo-bootstrap-map-js">Dojo Bootstrap Map JS</a></li>
+              </ul>
+            </li>
+            <li class="dropdown" id="">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">Build <b class="caret"></b></a>
+              <ul class="dropdown-menu" id="myDropdown">
+                <li><a target="_blank" href="https://jso.arcgis.com/">ArcGIS JS Optimizer</a></li>
+                <li class="divider"></li>
+                <li><a target="_blank" href="https://github.com/steveoh/grunt-esri-slurp">Grunt Esri Slurp</a></li>
+                <li><a target="_blank" href="https://github.com/tomwayson/esri-slurp-example">Grunt Esri Slurp Demo</a></li>
+                <li class="divider"></li>
+                <li><a target="_blank" href="https://github.com/dbouwman/modern-web-dev-workshop/blob/master/plan.md">Esri Modern Web Apps Workshop</a></li>
+              </ul>
+            </li>
+            <li class="dropdown" id="">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">Exemples <b class="caret"></b></a>
+              <ul class="dropdown-menu" id="myDropdown">
+                <li><a target="_blank" href="./exemples/esri-meteo/index.html">application météo - legacy</a></li>
+                <li><a target="_blank" href="./exemples/esri-meteo-amd/index.html">application météo - amd</a></li>
+                <li><a target="_blank" href="./exemples/dojo-bootstrap-map-js/src/">application cas d'étude</a></li>
+                <li><a target="_blank" href="./exemples/sig2015-incidents/src/">application collector</a></li>
+              </ul>
+            </li>
+          </li>
+        </ul>
+
+        <!-- Add nav elements with some tooltips -->
+        <ul class="nav navbar-nav navbar-right">
+          <li data-toggle="tooltip" title="Vue 2D" data-placement="bottom">
+            <a href="#2dTab" aria-controls="2Dtab" role="tab" data-toggle="tab">2D</a>
+          </li>
+          <!-- 3D not supported on mobile and iPad devices -->
+          <li data-toggle="tooltip" title="Vue 3D" data-placement="bottom">
+            <a href="#3dTab" class="active" aria-controls="3Dtab" role="tab" data-toggle="tab">3D</a>
+          </li>
+          <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Basemaps <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="basemapsDropdown">
+              <li data-toggle="tooltip" title="Select a basemap" data-placement="right"><a href="#">Streets</a></li>
+              <li data-toggle="tooltip" title="Select a basemap" data-placement="right"><a href="#">Satellite</a></li>
+              <li data-toggle="tooltip" title="Select a basemap" data-placement="right"><a href="#">National Geographic</a></li>
+              <li data-toggle="tooltip" title="Select a basemap" data-placement="right"><a href="#">Topographic</a></li>
+              <li data-toggle="tooltip" title="Select a basemap" data-placement="right"><a href="#">Gray</a></li>
+              <li data-toggle="tooltip" title="Select a basemap" data-placement="right"><a href="#">Dark Gray</a></li>
+              <li class="divider"></li>
+              <li data-toggle="tooltip" title="Select a basemap" data-placement="right"><a href="#">Open Street Map</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </nav>
+  <!--/.navbar -->
+
+  <!-- Container - fluid container to consume full width of screen -->
+  <div class="fluid-container" style="background: #777">
+    <div id="tabContainer" class="tab-content">
+      <div class="tab-pane fade" role="tabpanel" id="2dTab">
+        <div id="mapViewDiv"></div>
+      </div>
+      <div class="tab-pane fade in active" role="tabpanel" id="3dTab">
+        <div id="sceneViewDiv"></div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+
+
+  <div class="githublnk">
+    <hgroup>
+      <h3><a href="http://github.com/tsamaya/talking-code-esri-github">github.com/tsamaya/talking-code-esri-github</a></h3>
+    </hgroup>
+  </div>
+
+  <script src="https://js.arcgis.com/4.0beta1/"></script>
+
+  <script type="text/javascript">
+    var map, view, mapView, sceneView;
+    var isMobile = false;
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent)) {
+      isMobile = true;
+    }
+    require([
+        'esri/Map',
+        'esri/views/SceneView',
+        "esri/views/MapView",
+        'dojo/domReady!'
+      ],
+      function(Map, SceneView, MapView) {
+
+        // Map View
+        map = new Map({
+          basemap: 'topo'
+        });
+        // Scene View
+        sceneView = new SceneView({
+          container: 'sceneViewDiv',
+          map: map,
+          scale: 50000000,
+          center: [5.724614, 45.1889968]
+        });
+
+        // Map View
+        mapView = new MapView({
+          container: 'mapViewDiv',
+          map: map,
+          center: [5.724614, 45.1889968],
+          zoom: 3
+        });
+
+        view = sceneView;
+
+        // Use jQuery here for UI handlers, can also use dojoBootstrap (http://xsokev.github.io/Dojo-Bootstrap/index.html)
+        // or nativeBootstrap https://github.com/thednp/bootstrap.native
+        $(document).ready(function() {
+
+          // View change
+          $('li a[data-toggle="tab"]').click(function(e) {
+            switch (e.target.text) {
+              case 'Map':
+                view = mapView;
+                break;
+              case 'Scene':
+                view = sceneView;
+                break;
+            }
+          });
+
+          // Basemap change
+          $('#basemapsDropdown li').click(function(e) {
+            switch (e.target.text) {
+              case 'Streets':
+                map.basemap = 'streets';
+                break;
+              case 'Satellite':
+                map.basemap = 'satellite';
+                break;
+              case 'National Geographic':
+                map.basemap = 'national-geographic';
+                break;
+              case 'Topographic':
+                map.basemap = 'topo';
+                break;
+              case 'Gray':
+                map.basemap = 'gray';
+                break;
+              case 'Dark Gray':
+                map.basemap = 'dark-gray';
+                break;
+              case 'Open Street Map':
+                map.basemap = 'osm';
+                break;
+            }
+          });
+
+          // Tooltips toggle
+          if (!isMobile) {
+            $('[data-toggle="tooltip"]').tooltip({
+              delay: {
+                'show': 100,
+                'hide': 100
+              },
+              trigger: 'hover'
+            });
+            $(window).resize(function() {
+              setTips();
+            });
+
+            function setTips() {
+              if ($(window).width() <= 767) {
+                $('[data-toggle="tooltip"]').tooltip('disable');
+              } else {
+                $('[data-toggle="tooltip"]').tooltip('enable');
+              }
+            }
+            setTips();
+          }
+
+          // Limited to 2D on mobile devices, no need for tabs
+          if (isMobile) {
+            $('a[aria-controls="2Dtab"], a[aria-controls="3Dtab"]').addClass(
+              'hidden');
+          }
+        }); <!-- jQuery -->
+      }); <!-- dojo -->
+  </script>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- jQuery (for Bootstrap's JavaScript plugins). NOTE: You can also use pure Dojo. See examples. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Include all  plugins or individual files as needed -->
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
