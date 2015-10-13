@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- Lock viewport to prevent scaling -->
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="Tests Vector Tiles">
+	<meta name="author" content="">
+	
+    <title>Tuiles vectorielles</title>
+
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="https://js.arcgis.com/4.0beta1/esri/css/esri.css">
+
+	<style>
+		/* Set the min and max height of the map, otherwise will expand to full screen */
+
+		#mapViewDiv,
+		#sceneViewDiv {
+			/*min-height: 100px;
+    max-height: 1500px;*/
+		}
+
+		#mapViewDiv {
+			box-shadow: -1px 1px 15px 0px rgba(0, 0, 0, 0.8);
+		}
+
+		.panel {
+			box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.8);
+			border-radius: 3px;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Container - fluid container to consume full width of screen -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-9 col-sm-8 col-xs-8" id="mapViewDiv">
+
+			</div>
+			<!-- Right Bar to do stuff -->
+			<div class="col-md-3 col-sm-4 col-xs-4">
+				<div>
+
+					<!-- Nav tabs -->
+					<ul class="nav nav-pills" role="tablist">
+						<li role="presentation" ><a href="2D.html#2D" role="tab" >2D</a></li>
+						<li role="presentation"><a href="3D.html#3D" role="tab">3D</a></li>
+						<li role="presentation" class="active"><a href="#vector" role="tab">Tuiles vectorielles</a></li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane" id="2D"></div>
+						<div role="tabpanel" class="tab-pane" id="3D"></div>
+						<div role="tabpanel" class="tab-pane active" id="vector">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Changer le style
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a href="#" class="changeStyle" id="streets">Streets</a></li>
+											<li role="separator" class="divider"></li>
+											<li><a href="#" class="changeStyle" id="streets-relief">Streets Relief</a></li>
+											<li><a href="#" class="changeStyle" id="streets-mobile">Streets Mobile</a></li>
+											<li><a href="#" class="changeStyle" id="streets-night">Streets Night</a></li>
+											<li><a href="#" class="changeStyle" id="canvas-light">Canvas Light</a></li>
+											<li><a href="#" class="changeStyle" id="canvas-dark">Canvas Dark</a></li>
+										</ul>
+									</div>
+									<!-- /btn-group -->
+									<br/>
+									<div id="toogleButtons">
+										<button type="button" class="btn btn-default" id="showParks">
+											Voir les parcs
+										</button>
+										<br/>
+										<button type="button" class="btn btn-default" id="showHighways">
+											Voir les autoroutes
+										</button>
+										<br/>
+										<button type="button" class="btn btn-default" id="hideBuilding">
+											Cacher les bâtiments
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- /.container -->
+
+
+	<script src="https://js.arcgis.com/4.0beta1/"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="vector.js"></script>
+
+</body>
+
+</html>
