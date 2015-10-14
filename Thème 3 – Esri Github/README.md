@@ -1,7 +1,7 @@
 # Comment contribuer aux travaux de la communauté des développeurs Esri sur Github ?
 
 ## Présentation
-La présentation est téléchargeable [ici](./Présentation/Talking code- API JS 4.0v1beta.pdf)
+La présentation est téléchargeable [ici](./Présentation/Talking_code_esri_github.pdf)
 
 ## Ressources
 [Voir en ligne](http://tsamaya.github.io/talking-code-esri-github/)
